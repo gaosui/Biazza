@@ -1,0 +1,8 @@
+{
+  "name": "biazza",
+  "description": "Better Piazza",
+  "dependencies": {
+    "express": "^4.16.4",
+    "got": "^9.2.2"
+  }
+}
