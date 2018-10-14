@@ -13,10 +13,11 @@ root.appendChild(ul)
 
 
 let page_center = document.querySelector('#page_center')
+let searchBox = document.querySelector('#search-box')
 let keywordQueue = []
 // root.classList.add('active')
 // page_center.classList.add('active')
-document.querySelector('#search-box').addEventListener('input', e => {
+searchBox.addEventListener('input', e => {
   if (e.target.value) {
     keywordQueue.push(e.target.value)
     root.classList.add('active')
@@ -47,6 +48,8 @@ function search() {
         for (node of JSON.parse(httpRequest.responseText)) {
           let li = document.createElement('li')
           li.classList.add('biazza_li')
+          li.dataset.nr = node.nr
+          li.onclick = showPost
           let title = document.createElement('div')
           title.classList.add('title', 'ellipses')
           title.textContent = node.sub
@@ -65,3 +68,12 @@ function search() {
   console.log(keyword)
 }
 setInterval(search, 1000)
+
+function showPost(e) {
+  event = document.createEvent('HTMLEvents')
+  event.initEvent('keyup', true, true)
+  let old = searchBox.value
+  searchBox.value = '@' + this.dataset.nr
+  searchBox.dispatchEvent(event)
+  searchBox.value = old
+}
