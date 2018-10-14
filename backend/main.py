@@ -32,10 +32,13 @@ class Handler(BaseHTTPRequestHandler):
         res = predict(posts, nrs, args['key'][0], model)
         objs = []
         for r in res:
+            sub = cache[cid][r]['history'][0]['subject']
+            short = cache[cid][r]['content'].lstrip(sub)
+            short = short.lstrip(' ')
             objs.append({
                 'nr': r,
-                'sub': cache[cid][r]['history'][0]['subject'],
-                'short': cache[cid][r]['content'][0:120],
+                'sub': sub,
+                'short': short[0:120],
                 'red': 'unanswered' in cache[cid][r]['tags']
             })
 
