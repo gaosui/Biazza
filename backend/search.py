@@ -112,4 +112,4 @@ def predict(piazza_data, ids, query, model):
     cids = np.asarray(cids)
     sims = np.asarray(sims)
 
-    return cids[np.argsort(sims)]
+    return reversed(cids[np.argsort(sims)])
