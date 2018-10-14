@@ -1,2 +1,6 @@
 node_modules
 .DS_Store
+.vscode
+backend/settings.json
+backend/cache.json
+__pycache__
