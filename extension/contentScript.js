@@ -28,6 +28,10 @@ searchBox.addEventListener('input', e => {
     page_center.classList.remove('active')
   }
 })
+document.querySelector('#my_classes').addEventListener('click', () => {
+  root.classList.remove('active')
+  page_center.classList.remove('active')
+})
 document.querySelector('#clear-search-button').addEventListener('click', () => {
   root.classList.remove('active')
   page_center.classList.remove('active')
@@ -48,6 +52,7 @@ function search() {
         for (node of JSON.parse(httpRequest.responseText)) {
           let li = document.createElement('li')
           li.classList.add('biazza_li')
+          if (node.red) li.classList.add('red')
           li.dataset.nr = node.nr
           li.onclick = showPost
           let title = document.createElement('div')
@@ -76,4 +81,9 @@ function showPost(e) {
   searchBox.value = '@' + this.dataset.nr
   searchBox.dispatchEvent(event)
   searchBox.value = old
+
+  for (let li of ul.childNodes) {
+    li.classList.remove('active')
+  }
+  this.classList.add('active')
 }

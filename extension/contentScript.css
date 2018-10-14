@@ -45,12 +45,21 @@
   user-select: none;
   background-color: white;
 }
+.biazza_li.red {
+  background-color: #FFE6E6;
+}
+.biazza_li.active {
+  background-color: #FFF7CE;
+}
 .biazza_li .title {
   color: #30424D;
   font-size: 12px;
   font-weight: bold;
   line-height: 16px;
   margin: 2px 61px 0 26px;
+}
+.biazza_li.red .title {
+  color: #900;
 }
 .biazza_li .short {
   color: #80858A;
