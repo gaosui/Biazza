@@ -41,10 +41,8 @@ for cl in settings['classes']:
                     parser.feed(cchild['subject'])
             else:
                 parser.feed(child['history'][0]['content'])
-        ls[post['nr']] = {
-            'folders': post['folders'],
-            'content': parser.get_data().replace('\n', ' ')
-        }
+        post['content'] = parser.get_data().replace('\n', ' ')
+        ls[post['nr']] = post
     cache[cl] = ls
 
 f = open('cache.json', 'w')
