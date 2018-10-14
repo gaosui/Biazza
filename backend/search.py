@@ -101,6 +101,10 @@ def predict(piazza_data, ids, query, model):
             sims.append(sim[0])
 
     if(len(cids) < 2):
+        for i, sim in enumerate(cosine_similarity(tfs, search_tf)):
+            if(sim[0] > 0.05):
+                cids.append(ids[i])
+                sims.append(sim[0])
         for sub in substring_keys.keys():
             sub_tf = tfidf.transform([sub])
             for i, sim in enumerate(cosine_similarity(tfs, sub_tf)):
