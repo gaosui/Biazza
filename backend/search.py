@@ -19,7 +19,7 @@ def tokenize_a_sentence(sentence):
     
     sentence = sentence.strip()
     
-    line_tokens = re.split(' |\*|_|\n',sentence) 
+    line_tokens = re.split(' |_|\n',sentence) 
     line_tokens = list(filter(lambda a: a != '', line_tokens))
     
     filtered= []
@@ -36,7 +36,7 @@ def tokenize_a_sentence(sentence):
     return filtered
     
 
-def tokenize(docs,cids):
+def tokenize(docs):
 
     all_doc_tokens = []
     index = 0
@@ -47,7 +47,7 @@ def tokenize(docs,cids):
         for i in range(len(sentences)):
             tokens += tokenize_a_sentence(sentences[i])
         
-        all_doc_tokens.append([cids[index],tokens])
+        all_doc_tokens.append([index,tokens])
         index+=1
 
 
@@ -60,7 +60,7 @@ def prepare_search(query):
 
 def predict(piazza_data, ids, query, model):
     print("predict start")
-    list_of_lines = tokenize(piazza_data,ids)
+    list_of_lines = tokenize(piazza_data)
     corpus = []
     for text in list_of_lines:
         corpus.append(' '.join([l.rstrip().lower().translate(str.maketrans('','',string.punctuation)) for l in text[1]]))
