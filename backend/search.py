@@ -59,34 +59,35 @@ def prepare_search(query):
     
 
 def predict(piazza_data, ids, query, model):
-    print("predict start")
     list_of_lines = tokenize(piazza_data)
     corpus = []
     for text in list_of_lines:
         corpus.append(' '.join([l.rstrip().lower().translate(str.maketrans('','',string.punctuation)) for l in text[1]]))
     
-    print("line66")
     tfidf = TfidfVectorizer(tokenizer=nltk.word_tokenize, stop_words='english', min_df=1, max_df=0.8)
     tfs = tfidf.fit_transform(corpus)
-    
-    print("line70")
-    
+        
     similarity = lambda u, v: 1-cosine(u, v)
         
     token_list = prepare_search(query)
 
-    print("line77")
     similar_keys = {}
+    substring_keys = {}
     vocab = tfidf.vocabulary_
-    print("line76")
+
     for k in vocab.keys():
-        if(k in model):
-            for t in token_list:
+        for t in token_list:
+            if(t in k):
+                if(k not in substring_keys):
+                    substring_keys[k] = 1
+                    token_list.append(k)
+            if(k in model and k not in model):
                 if (t in model and similarity(model[k],model[t]) > 0.6 ):
                     similar_keys[k] = 1
+            
     
-    print("line87")
     search = ' '.join(token_list+list(similar_keys.keys()))
+    print(search)
 
     search_tf = tfidf.transform([search])
 
