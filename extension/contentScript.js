@@ -37,7 +37,7 @@ function search() {
   httpRequest.onreadystatechange = () => {
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
       if (httpRequest.status === 200) {
-        console.log('got response')
+        console.log(JSON.parse(httpRequest.responseText))
       }
     }
   }
