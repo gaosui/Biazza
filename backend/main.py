@@ -35,7 +35,7 @@ class Handler(BaseHTTPRequestHandler):
             objs.append({
                 'nr': r,
                 'sub': cache[cid][r]['history'][0]['subject'],
-                'short': cache[cid][r]['history'][0]['content'][0:120]
+                'short': cache[cid][r]['content'][0:120]
             })
 
         self.send_response(200)

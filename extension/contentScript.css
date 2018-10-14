@@ -4,7 +4,6 @@
   top: 0;
   width: 0;
   position: absolute;
-  background-color: gray;
   transition: width 0.5s;
   color: #333;
   border-left: 1px solid #ccc;
@@ -13,8 +12,18 @@
 .biazza.active {
   width: 300px;
 }
+.biazza ul {
+  list-style: none;
+  position: absolute;
+  bottom: 0px;
+  top: 25px;
+  overflow-y: auto;
+  width: 100%;
+  height: inherit;
+}
 
-.biazza_bar {
+.biazza .biazza_bbar {
+
   line-height: 23px;
   color: #707d8d;
   text-shadow: 0 1px 0 #f7f8f9;
@@ -22,9 +31,36 @@
   font-family: "Lucida Grande", Lucida, Arial, sans-serif;
   box-shadow: inset 0 1px 0 white;
   height: 24px;
-  width: 100%;
+  width: 275px;
   padding: 0 0 0 25px;
   border-bottom: 1px solid #707d8d;
+}
+
+.biazza_li {
+  border-bottom: 1px solid #d2d8df;
+  cursor: default;
+  padding: 5px 3px 5px 0px;
+  position: relative;
+  min-height: 35px;
+  user-select: none;
+  background-color: white;
+}
+.biazza_li .title {
+  color: #30424D;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px;
+  margin: 2px 61px 0 26px;
+}
+.biazza_li .short {
+  color: #80858A;
+  font-family: 'Lucida Grande', Lucida, Arial, sans-serif;
+  font-size: 11px;
+  max-height: 39px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+  margin: 0 61px 0 26px;
 }
 
 /* OVERRIDE */

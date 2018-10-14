@@ -4,14 +4,18 @@ root.classList.add('biazza')
 document.querySelector('#views').appendChild(root)
 
 let bar = document.createElement('div')
-bar.classList.add('dashboard_toolbar', 'biazza_bar')
+bar.classList.add('dashboard_toolbar', 'biazza_bbar')
 bar.textContent = 'Biazza'
 root.appendChild(bar)
 
+let ul = document.createElement('ul')
+root.appendChild(ul)
 
 
 let page_center = document.querySelector('#page_center')
 let keywordQueue = []
+// root.classList.add('active')
+// page_center.classList.add('active')
 document.querySelector('#search-box').addEventListener('input', e => {
   if (e.target.value) {
     keywordQueue.push(e.target.value)
@@ -37,7 +41,22 @@ function search() {
   httpRequest.onreadystatechange = () => {
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
       if (httpRequest.status === 200) {
-        console.log(JSON.parse(httpRequest.responseText))
+        while (ul.hasChildNodes()) {
+          ul.removeChild(ul.firstChild)
+        }
+        for (node of JSON.parse(httpRequest.responseText)) {
+          let li = document.createElement('li')
+          li.classList.add('biazza_li')
+          let title = document.createElement('div')
+          title.classList.add('title', 'ellipses')
+          title.textContent = node.sub
+          li.appendChild(title)
+          let short = document.createElement('div')
+          short.classList.add('short')
+          short.textContent = node.short
+          li.appendChild(short)
+          ul.appendChild(li)
+        }
       }
     }
   }
