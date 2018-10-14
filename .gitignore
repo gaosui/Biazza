@@ -3,4 +3,5 @@ node_modules
 .vscode
 backend/settings.json
 backend/cache.json
+GoogleNews-vectors-negative300.bin
 __pycache__
