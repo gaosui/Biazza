@@ -18,7 +18,7 @@ for i in cids:
     posts.append(cache['jml6wogpji0o3'][str(i)]['content'])
 
 search.setup()
-results = search.predict(posts, cids, "soft", model)
+results = search.predict(posts, cids, "software", model)
 
 print(results)
 #for result in results:

@@ -81,13 +81,12 @@ def predict(piazza_data, ids, query, model):
                 if(k not in substring_keys):
                     substring_keys[k] = 1
                     #token_list.append(k)
-            if(k in model and k not in substring_keys):
+            if(k in model and k not in substring_keys and k not in token_list):
                 if (t in model and similarity(model[k],model[t]) > 0.6 ):
                     similar_keys[k] = 1
             
     similar_list = list(similar_keys.keys())
     search = ' '.join(token_list+similar_list)
-    
 
     print(search)
     search_tf = tfidf.transform([search])
