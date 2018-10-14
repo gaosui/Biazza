@@ -7,7 +7,7 @@ cache = json.load(f)
 f.close()
 
 
-print(cache['jml6wogpji0o3'][sys.argv[1]])
+print(cache['jml6wogpji0o3'][sys.argv[1]]['content'])
 
 #from http.server import BaseHTTPRequestHandler, HTTPServer
 
