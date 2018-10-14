@@ -77,19 +77,21 @@ def predict(piazza_data, ids, query, model):
 
     for k in vocab.keys():
         for t in token_list:
-            if(t in k):
+            if(t in k and t != k):
                 if(k not in substring_keys):
                     substring_keys[k] = 1
-                    token_list.append(k)
-            if(k in model and k not in model):
+                    #token_list.append(k)
+            if(k in model and k not in substring_keys):
                 if (t in model and similarity(model[k],model[t]) > 0.6 ):
                     similar_keys[k] = 1
             
+    similar_list = list(similar_keys.keys())
+    search = ' '.join(token_list+similar_list)
     
-    search = ' '.join(token_list+list(similar_keys.keys()))
-    print(search)
 
+    print(search)
     search_tf = tfidf.transform([search])
+
 
     cids = []
     sims = []
@@ -98,7 +100,16 @@ def predict(piazza_data, ids, query, model):
         if(sim[0] > 0.1):
             cids.append(ids[i])
             sims.append(sim[0])
+
+    if(len(cids) < 2):
+        for sub in substring_keys.keys():
+            sub_tf = tfidf.transform([sub])
+            for i, sim in enumerate(cosine_similarity(tfs, sub_tf)):
+                if(sim[0] > 0.05 and ids[i] not in cids):
+                    cids.append(ids[i])
+                    sims.append(sim[0])
+    
     cids = np.asarray(cids)
     sims = np.asarray(sims)
-    print("before_return")
+
     return cids[np.argsort(sims)]
