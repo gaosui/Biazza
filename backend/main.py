@@ -16,19 +16,20 @@ print('cache loaded')
 
 
 def buildDict(cid):
-    cids = list(cache[cid].keys())
+    nrs = []
     posts = []
-    for i in cids:
-        posts.append(cache[cid][str(i)]['content'])
-    return posts, cids
+    for k, v in cache[cid].items():
+        nrs.append(k)
+        posts.append(v['content'])
+    return posts, nrs
 
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         args = up.parse_qs(self.path.split('?')[1])
 
-        posts, cids = buildDict(args['cid'][0])
-        res = predict(posts, cids, args['key'], model)
+        posts, nrs = buildDict(args['cid'][0])
+        res = predict(posts, nrs, args['key'][0], model)
         print(res)
 
         self.send_response(200)
