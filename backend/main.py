@@ -26,14 +26,22 @@ def buildDict(cid):
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         args = up.parse_qs(self.path.split('?')[1])
+        cid = args['cid'][0]
 
-        posts, nrs = buildDict(args['cid'][0])
+        posts, nrs = buildDict(cid)
         res = predict(posts, nrs, args['key'][0], model)
-        print(res)
+        objs = []
+        for r in res:
+            objs.append({
+                'nr': r,
+                'sub': cache[cid][r]['history'][0]['subject'],
+                'short': cache[cid][r]['history'][0]['content'][0:120]
+            })
 
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
+        self.wfile.write(json.dumps(objs).encode())
         return
 
 
