@@ -23,12 +23,16 @@ document.querySelector('#search-box').addEventListener('input', e => {
     page_center.classList.remove('active')
   }
 })
+document.querySelector('#clear-search-button').addEventListener('click', () => {
+  root.classList.remove('active')
+  page_center.classList.remove('active')
+})
 
 function search() {
   if (!keywordQueue.length) return
   keyword = keywordQueue.pop()
   keywordQueue = []
-  
+
   httpRequest = new XMLHttpRequest()
   httpRequest.onreadystatechange = () => {
     if (httpRequest.readyState === XMLHttpRequest.DONE) {

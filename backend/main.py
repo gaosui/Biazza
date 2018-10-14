@@ -5,8 +5,7 @@ import urllib.parse as up
 from search import predict
 from gensim.models import KeyedVectors
 
-model = KeyedVectors.load_word2vec_format(
-    "./GoogleNews-vectors-negative300.bin", binary=True)
+model = KeyedVectors.load("vectors.kv", mmap='r')
 print('model loaded')
 
 f = open('cache.json')
