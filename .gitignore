@@ -6,5 +6,4 @@ backend/cache.json
 GoogleNews-vectors-negative300.bin
 __pycache__
 **/*.pyc
-save_model.py
 *.kv*
